@@ -21,18 +21,26 @@
     </table>
 
     <h1>Observadores</h1>
-
+    <input type="number" v-model.number="minima" placeholder="Mínima"/>
+    <fahrenheit-temperature :minima="minima" 
+        @selecionar="retornarTemperatura" 
+        :maxima="300">
+    </fahrenheit-temperature>
   </div>
 </template>
 
 <script>
-
+import FahrenheitTemperature from "@/components/FahrenheitTemperature"
 export default {
+  components: {
+    FahrenheitTemperature
+  },
   data() {
     return {
       nome : 'Fabiano',
       sobrenome: 'Oss',
       filtro: '',
+      minima: 0,
       carros: [
         { nome: 'Lamborguini', id: 1},
         { nome: 'Fusca', id: 2},
@@ -53,7 +61,7 @@ export default {
   updated() {
     /* eslint-disable */
     console.log('atualizou os componentes')
-ç  },
+  },
   watch: {
     nome: function (val) {
       /* eslint-disable */
@@ -75,6 +83,13 @@ export default {
       return this.carros.filter(c => {
         return c.nome.startsWith(this.filtro)
       })
+    }
+  },
+  methods: {
+    retornarTemperatura(t) {
+      alert("Celsius: " + t.celsius  +
+            "\nFahrenheit: " + t.fahrenheit
+            )
     }
   }
 }
