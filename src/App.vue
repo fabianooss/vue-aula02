@@ -1,15 +1,21 @@
 <template>
-  <div id="app">
-    <h1> Campos calculados </h1>
-    <p> {{ nomeCompleto }} </p>
-    <input type="text" v-model="nome"/>
+  <div class="container">
+
+    <div class="card">
+    <div class="card-content">
+      <h1> Campos calculados </h1>
+      <p> {{ nomeCompleto }} </p>
+      <input type="text" v-model="nome"/>
+    </div>
+    </div>
 
     <br/>
     <input type="text" 
+        class="input"
         v-model="filtro"
         placeholder="Digite um nome para pesquisar"
     />
-    <table>
+    <table class="table is-bordered">
       <tr>
         <th>Id</th>
         <th>Nome</th>
@@ -26,14 +32,26 @@
         @selecionar="retornarTemperatura" 
         :maxima="300">
     </fahrenheit-temperature>
+
+    <h2> Componente </h2>
+
+     <multiselect v-model="carroSelecionado" 
+            :multiple="true"
+            track-by="id"
+            :options="carros" label="nome"></multiselect>
+
+    {{carroSelecionado}}
+
+
   </div>
 </template>
 
 <script>
 import FahrenheitTemperature from "@/components/FahrenheitTemperature"
+import Multiselect from 'vue-multiselect'
 export default {
   components: {
-    FahrenheitTemperature
+    FahrenheitTemperature, Multiselect
   },
   data() {
     return {
@@ -41,6 +59,7 @@ export default {
       sobrenome: 'Oss',
       filtro: '',
       minima: 0,
+      carroSelecionado: null,
       carros: [
         { nome: 'Lamborguini', id: 1},
         { nome: 'Fusca', id: 2},
@@ -95,13 +114,6 @@ export default {
 }
 </script>
 
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>
