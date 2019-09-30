@@ -42,6 +42,21 @@
 
     {{carroSelecionado}}
 
+    <button @click="ativo=true">Abrir modal</button> 
+    <modal 
+        :ativo="ativo" 
+        :titulo="tituloDaJanela"
+        @close="ativo=false" 
+        @salvar="salvar">
+
+      <span slot="conteudo">
+        <div>
+          <input type="text" placeholder="Nome"/>
+        </div>
+      </span> 
+
+        
+    </modal>
 
   </div>
 </template>
@@ -49,12 +64,15 @@
 <script>
 import FahrenheitTemperature from "@/components/FahrenheitTemperature"
 import Multiselect from 'vue-multiselect'
+import Modal from '@/components/Modal'
 export default {
   components: {
-    FahrenheitTemperature, Multiselect
+    FahrenheitTemperature, Multiselect, Modal
   },
   data() {
     return {
+      tituloDaJanela: 'Cliente',
+      ativo: false,
       nome : 'Fabiano',
       sobrenome: 'Oss',
       filtro: '',
@@ -109,6 +127,9 @@ export default {
       alert("Celsius: " + t.celsius  +
             "\nFahrenheit: " + t.fahrenheit
             )
+    },
+    salvar() {
+      this.ativo = false
     }
   }
 }
